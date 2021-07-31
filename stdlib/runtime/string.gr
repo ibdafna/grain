@@ -33,6 +33,7 @@ primitive (||) : (Bool, Bool) -> Bool = "@or"
 
 enum StringList { [], [...](String, StringList) }
 
+@disableGC
 let _RUNTIME_TYPE_METADATA_PTR = 0x408n
 
 @disableGC
