@@ -8,8 +8,8 @@ let mut › let-mut3
  (import \"_grainEnv\" \"relocBase\" (global $import__grainEnv_0_relocBase_0 i32))
  (import \"GRAIN$MODULE$runtime/gc\" \"GRAIN$EXPORT$incRef\" (global $import_GRAIN$MODULE$runtime/gc_0_GRAIN$EXPORT$incRef_0 (mut i32)))
  (import \"GRAIN$MODULE$runtime/gc\" \"GRAIN$EXPORT$decRefIgnoreZeros\" (global $import_GRAIN$MODULE$runtime/gc_0_GRAIN$EXPORT$decRefIgnoreZeros_0 (mut i32)))
- (import \"GRAIN$MODULE$pervasives\" \"GRAIN$EXPORT$unbox\" (global $import_pervasives_1143_unbox_1144 (mut i32)))
- (import \"GRAIN$MODULE$pervasives\" \"GRAIN$EXPORT$box\" (global $import_pervasives_1145_box_1146 (mut i32)))
+ (import \"GRAIN$MODULE$pervasives\" \"GRAIN$EXPORT$unbox\" (global $import_pervasives_1150_unbox_1151 (mut i32)))
+ (import \"GRAIN$MODULE$pervasives\" \"GRAIN$EXPORT$box\" (global $import_pervasives_1152_box_1153 (mut i32)))
  (import \"GRAIN$MODULE$runtime/gc\" \"incRef\" (func $import_GRAIN$MODULE$runtime/gc_0_incRef_0 (param i32 i32) (result i32)))
  (import \"GRAIN$MODULE$runtime/gc\" \"decRefIgnoreZeros\" (func $import_GRAIN$MODULE$runtime/gc_0_decRefIgnoreZeros_0 (param i32 i32) (result i32)))
  (global $global_1 i32 (i32.const 0))
@@ -19,14 +19,25 @@ let mut › let-mut3
  (export \"GRAIN$TABLE_SIZE\" (global $global_1))
  (func $_gmain (; has Stack IR ;) (result i32)
   (local $0 i32)
-  (local.set $0
+  (local $1 i32)
+  (local.set $1
    (tuple.extract 0
     (tuple.make
      (call_indirect (type $i32_i32_=>_i32)
-      (global.get $import_pervasives_1145_box_1146)
+      (local.tee $0
+       (tuple.extract 0
+        (tuple.make
+         (call $import_GRAIN$MODULE$runtime/gc_0_incRef_0
+          (global.get $import_GRAIN$MODULE$runtime/gc_0_GRAIN$EXPORT$incRef_0)
+          (global.get $import_pervasives_1152_box_1153)
+         )
+         (i32.const 0)
+        )
+       )
+      )
       (i32.const 9)
       (i32.load offset=8
-       (global.get $import_pervasives_1145_box_1146)
+       (local.get $0)
       )
      )
      (call $import_GRAIN$MODULE$runtime/gc_0_decRefIgnoreZeros_0
@@ -36,12 +47,12 @@ let mut › let-mut3
     )
    )
   )
-  (local.set $0
+  (local.set $1
    (tuple.extract 0
     (tuple.make
      (call $import_GRAIN$MODULE$runtime/gc_0_incRef_0
       (global.get $import_GRAIN$MODULE$runtime/gc_0_GRAIN$EXPORT$incRef_0)
-      (local.get $0)
+      (local.get $1)
      )
      (call $import_GRAIN$MODULE$runtime/gc_0_decRefIgnoreZeros_0
       (global.get $import_GRAIN$MODULE$runtime/gc_0_GRAIN$EXPORT$decRefIgnoreZeros_0)
@@ -51,10 +62,23 @@ let mut › let-mut3
    )
   )
   (return_call_indirect (type $i32_i32_=>_i32)
-   (global.get $import_pervasives_1143_unbox_1144)
-   (local.get $0)
+   (local.tee $0
+    (tuple.extract 0
+     (tuple.make
+      (call $import_GRAIN$MODULE$runtime/gc_0_incRef_0
+       (global.get $import_GRAIN$MODULE$runtime/gc_0_GRAIN$EXPORT$incRef_0)
+       (global.get $import_pervasives_1150_unbox_1151)
+      )
+      (local.get $0)
+     )
+    )
+   )
+   (call $import_GRAIN$MODULE$runtime/gc_0_incRef_0
+    (global.get $import_GRAIN$MODULE$runtime/gc_0_GRAIN$EXPORT$incRef_0)
+    (local.get $1)
+   )
    (i32.load offset=8
-    (global.get $import_pervasives_1143_unbox_1144)
+    (local.get $0)
    )
   )
  )
