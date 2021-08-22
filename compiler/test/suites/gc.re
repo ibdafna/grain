@@ -18,6 +18,7 @@ let makeGcProgram = (program, heap_size) => {
       // Memory is not reclaimed due to no gc context
       // This will actually leak 16 extra bytes because of the headers
       Memory.malloc(WasmI32.sub(toLeak, 16n));
+      void
     }
     leak();
     %s

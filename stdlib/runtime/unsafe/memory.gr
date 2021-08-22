@@ -1,11 +1,13 @@
 /* grainc-flags --compilation-mode=runtime */
 
-import { malloc, free, incRef, decRef } from "runtime/gc"
+import { malloc, free, incRef, decRef, utoa32Buf, decimalCount32 } from "runtime/gc"
 
 export malloc
 export free
 export incRef
 export decRef
+export utoa32Buf
+export decimalCount32
 
 export primitive copy: (WasmI32, WasmI32, WasmI32) -> Void = "@wasm.memory_copy"
 export primitive fill: (WasmI32, WasmI32, WasmI32) -> Void = "@wasm.memory_fill"

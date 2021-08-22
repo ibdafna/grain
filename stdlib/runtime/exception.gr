@@ -15,7 +15,7 @@ export let mut printers = 0n
 // no GC operations. As such, they should only be called by this module and/or
 // modules that understand these restrictions, namely Pervasives.
 
-export let dangerouslyRegisterBasePrinter = (f) => {
+export let rec dangerouslyRegisterBasePrinter = (f) => {
   let mut current = printers
   while (true) {
     // There will be at least one printer registered by the time this is called
@@ -29,10 +29,16 @@ export let dangerouslyRegisterBasePrinter = (f) => {
     }
     current = next
   }
+  // We don't decRef the closure or arguments here to avoid a cyclic dep. on Memory.
+  // This is fine, as this function should only be called once.
+  void
 }
 
-export let dangerouslyRegisterPrinter = (f) => {
+export let rec dangerouslyRegisterPrinter = (f) => {
   printers = WasmI32.fromGrain((f, printers))
+  // We don't decRef the closure or arguments here to avoid a cyclic dep. on Memory.
+  // This is fine, as this function is only called seldomly.
+  void
 }
 
 let _GENERIC_EXCEPTION_NAME = "GrainException"
