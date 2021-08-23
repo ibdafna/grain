@@ -111,7 +111,64 @@ export let mod = (x: Int64, y: Int64) => {
   WasmI32.toGrain(ptr): Int64
 }
 
+@disableGC
+export let clz = (n: Int64) => {
+  let n = WasmI64.load(WasmI32.fromGrain(n), 8n)
+  let ptr = newInt64(WasmI64.clz(n))
+  WasmI32.toGrain(ptr): Int64
+}
+
+@disableGC
+export let ctz = (n: Int64) => {
+  let n = WasmI64.load(WasmI32.fromGrain(n), 8n)
+  let ptr = newInt64(WasmI64.ctz(n))
+  WasmI32.toGrain(ptr): Int64
+}
+
+@disableGC
+export let popcnt = (n: Int64) => {
+  let n = WasmI64.load(WasmI32.fromGrain(n), 8n)
+  let ptr = newInt64(WasmI64.popcnt(n))
+  WasmI32.toGrain(ptr): Int64
+}
+
+@disableGC
+export let rotl = (x: Int64, y: Int64) => {
+  let x = WasmI64.load(WasmI32.fromGrain(x), 8n)
+  let y = WasmI64.load(WasmI32.fromGrain(y), 8n)
+  let ptr = newInt64(WasmI64.rotl(x, y))
+  WasmI32.toGrain(ptr): Int64
+}
+
+@disableGC
+export let rotr = (x: Int64, y: Int64) => {
+  let x = WasmI64.load(WasmI32.fromGrain(x), 8n)
+  let y = WasmI64.load(WasmI32.fromGrain(y), 8n)
+  let ptr = newInt64(WasmI64.rotr(x, y))
+  WasmI32.toGrain(ptr): Int64
+}
+
 // Int64 comparisons
+
+@disableGC
+export let eq = (x: Int64, y: Int64) => {
+  let x = WasmI64.load(WasmI32.fromGrain(x), 8n)
+  let y = WasmI64.load(WasmI32.fromGrain(y), 8n)
+  WasmI64.eq(x, y)
+}
+
+@disableGC
+export let ne = (x: Int64, y: Int64) => {
+  let x = WasmI64.load(WasmI32.fromGrain(x), 8n)
+  let y = WasmI64.load(WasmI32.fromGrain(y), 8n)
+  WasmI64.ne(x, y)
+}
+
+@disableGC
+export let eqz = (n: Int64) => {
+  let x = WasmI64.load(WasmI32.fromGrain(n), 8n)
+  WasmI64.eqz(x)
+}
 
 @disableGC
 export let lt = (x: Int64, y: Int64) => {
